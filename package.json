@@ -1,5 +1,5 @@
 {
-  "name": "sm",
+  "name": "spidermonkey",
   "version": "0.0.1",
   "description": "Spawn a SpiderMonkey shell as a child process.",
   "keywords": [
@@ -17,7 +17,7 @@
   "main": "lib/sm.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dherman/xpi.js.git"
+    "url": "git://github.com/dherman/sm.js.git"
   },
   "engine": {
     "node": ">=0.6.17"
