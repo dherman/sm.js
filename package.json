@@ -1,0 +1,36 @@
+{
+  "name": "sm",
+  "version": "0.0.1",
+  "description": "Spawn a SpiderMonkey shell as a child process.",
+  "keywords": [
+    "firefox",
+    "spidermonkey",
+    "shell"
+  ],
+  "homepage": "https://github.com/dherman/sm.js",
+  "author": "Dave Herman <dherman@mozilla.com> (https://github.com/dherman)",
+  "bugs": {
+    "email": "dherman@mozilla.com",
+    "url": "https://github.com/dherman/sm.js/issues"
+  },
+  "license": "MIT",
+  "main": "lib/sm.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dherman/xpi.js.git"
+  },
+  "engine": {
+    "node": ">=0.6.17"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies": {
+    "temp": "0.4.x"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
