@@ -5,41 +5,65 @@ Run a SpiderMonkey shell as a [node](http://nodejs.org) child process.
 ## Usage
 
 ```javascript
-var sm = require('sm');
+var SM = require('sm');
 
-sm.evaluate('var x = 12; x * 3').on('return', function(result) {
+var sm = new SM({ shell: "js" });
+
+sm.eval('var x = 12; x * 3', function(err, result) {
     // got the result
 });
-sm.evaluate('throw 12').on('throw', function(e) {
+sm.eval('throw 12', function(err, result) {
     // got the thrown exception
 });
-sm.check('delete for this').on('throw', function(e) {
+sm.check('delete for this', function(err, result) {
     // got the syntax error
 });
-sm.check('function asi() { return 12 }').on('return', function() {
+sm.check('function asi() { return 12 }', function(err, result) {
     // syntax successfully checked
 });
-sm.parse('var x = 12; x * 3').on('return', function(ast) {
+sm.parse('var x = 12; x * 3', function(err, result) {
     // got the parsed AST
+});
+sm.load('foo.js', function(err, result) {
+    // got the result of evaluating the file
+});
+sm.parseFile('foo.js', function(err, result) {
+    // got the result of parsing the file
+});
+sm.checkFile('foo.js', function(err, result) {
+    // got the result of checking the syntax of the file
+});
+sm.close(); // request the end of session
+sm.on('exit', function() {
+    // the SpiderMonkey process exited
 });
 ```
 
-## Functions
+## Constructor
 
-All the functions provided by this module produce an [EventEmitter](http://nodejs.org/api/events.html) that supports the same set of events.
+This module is a constructor with a single options object that recognizes one option:
 
-  * `evaluate(src[, shell="js"])` : evaluates source with SpiderMonkey
-  * `evaluateFile(path[, shell="js"])` : evaluates a file with SpiderMonkey
-  * `parse(src[, shell="js"])` : parses source with SpiderMonkey, producing an AST with the [Mozilla Parser API](https://developer.mozilla.org/en/SpiderMonkey/Parser_API)
-  * `parseFile(path[, shell="js"])` : parses a file with SpiderMonkey
-  * `check(src[, shell="js"])` : checks source for syntax errors with SpiderMonkey
-  * `checkFile(path[, shell="js"])` : checks a file for syntax errors with SpiderMonkey
+  * `shell="js"` : the path to the SpiderMonkey shell
+
+## Methods
+
+The result of the constructor is an [EventEmitter](http://nodejs.org/api/events.html) object with the following methods:
+
+  * `eval(src, callback)` : evaluates source with SpiderMonkey
+  * `load(path, callback)` : evaluates source from a file with SpiderMonkey
+  * `parse(src, callback)` : parses source with SpiderMonkey
+  * `parseFile(path, callback)` : parses contents of a file with SpiderMonkey
+  * `check(src, callback)` : checks source for valid syntax with SpiderMonkey
+  * `checkFile(path, callback)` : checks source from a file for valid syntax with SpiderMonkey
+  * `close` : sends a message requesting SpiderMonkey to close down after finishing all pending actions
+
+Each method sends a buffered message to SpiderMonkey requesting that it evaluate the corresponding action.
+
+Each callback takes an error object signifying that SpiderMonkey threw an exception or an error occurred communicating with SpiderMonkey, or `null` followed by a return value if the action returned normally.
 
 ## Events
 
-  * `"return"` : the result of a successful evaluation in SpiderMonkey, communicated via JSON
-  * `"throw"` : the result of a thrown exception in SpiderMonkey, communicated via JSON
-  * `"error"` : an I/O or spawning error occurred
+  * `"exit"` : the SpiderMonkey shell has exited
 
 ## License
 

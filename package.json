@@ -1,6 +1,6 @@
 {
   "name": "spidermonkey",
-  "version": "0.0.3",
+  "version": "0.1.1",
   "description": "Spawn a SpiderMonkey shell as a child process.",
   "keywords": [
     "firefox",
@@ -25,9 +25,7 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {
-    "temp": "0.4.x"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
