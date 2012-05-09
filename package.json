@@ -1,6 +1,6 @@
 {
   "name": "spidermonkey",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Spawn a SpiderMonkey shell as a child process.",
   "keywords": [
     "firefox",
