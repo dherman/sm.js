@@ -65,6 +65,7 @@ Each callback takes an error object signifying that SpiderMonkey threw an except
 
   * `"message"` : received a response from the SpiderMonkey shell
   * `"exit"` : the SpiderMonkey shell has exited
+  * `"error"` : the SpiderMonkey shell has errored (e.g. failed to spawn)
 
 ## License
 
